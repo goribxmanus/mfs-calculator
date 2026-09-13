@@ -1,21 +1,1096 @@
 <!doctype html>
-<html lang="en">
+<html lang="bn" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>MFS Business Charge Calculator</title>
+    <title>MFS Business Charge Calculator | পার্সোনাল এমএফএস চার্জ ক্যালকুলেটর</title>
     <meta name="description" content="Personal Account Business Charging System for small businesses in Bangladesh calculating effective customer charges for bKash, Nagad, Rocket, and Upay." />
     <meta property="og:title" content="MFS Business Charge Calculator" />
     <meta property="og:description" content="Personal Account Business Charging System for small businesses in Bangladesh calculating effective customer charges for bKash, Nagad, Rocket, and Upay." />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN (Guaranteed to work offline once cached and directly via file:/// with zero build setup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', '"Hind Siliguri"', 'system-ui', 'sans-serif'],
+              bengali: ['"Hind Siliguri"', 'sans-serif']
+            },
+            colors: {
+              slate: {
+                850: '#151f32',
+                950: '#070d19'
+              }
+            }
+          }
+        }
+      };
+    </script>
+    
+    <!-- Lucide Icons UMD -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', 'Hind Siliguri', system-ui, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+      .lang-bn {
+        font-family: 'Hind Siliguri', 'Plus Jakarta Sans', system-ui, sans-serif;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 4px;
+      }
+    </style>
   </head>
-  <body class="bg-slate-900 text-slate-100 antialiased selection:bg-emerald-500 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center selection:bg-emerald-500 selection:text-white pb-6 antialiased">
+
+    <!-- TOP HEADER -->
+    <header class="relative w-full border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md px-3 py-1.5 sm:px-5 sm:py-2.5 z-30 sticky top-0">
+      <div class="max-w-md mx-auto flex items-center justify-between gap-2">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <h1 id="header-title" class="text-sm sm:text-base font-bold text-slate-100 tracking-tight truncate">
+              MFS Business Charge Calculator
+            </h1>
+          </div>
+          <p id="header-subtitle" class="text-[10px] sm:text-xs text-slate-400 font-medium tracking-normal truncate">
+            Personal Account Business Charging System
+          </p>
+        </div>
+
+        <!-- Corner Menu Toggle -->
+        <div class="relative">
+          <button
+            type="button"
+            id="menu-button"
+            aria-label="Application Menu"
+            class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-slate-800/90 hover:bg-slate-700/80 active:scale-95 text-slate-200 border border-slate-700/70 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+          >
+            <i data-lucide="menu" class="w-4 h-4" id="menu-icon"></i>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div
+            id="dropdown-menu"
+            class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150"
+          >
+            <!-- 1. Cashout Charge Screen -->
+            <button
+              type="button"
+              id="menu-calc-btn"
+              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-400 bg-slate-800/60 hover:bg-slate-800 transition-colors text-left"
+            >
+              <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i>
+              <span id="menu-label-calc">Cashout Charge</span>
+            </button>
+
+            <!-- 2. About Developer Screen -->
+            <button
+              type="button"
+              id="menu-about-btn"
+              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors text-left mt-1"
+            >
+              <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+              <span id="menu-label-about">About Developer</span>
+            </button>
+
+            <div class="my-1.5 border-t border-slate-800"></div>
+
+            <!-- 3. Language Switcher -->
+            <div class="px-3 py-1">
+              <span id="menu-label-lang" class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                Language / ভাষা
+              </span>
+              <div class="grid grid-cols-2 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                <button
+                  type="button"
+                  id="lang-btn-en"
+                  class="py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center text-slate-400 hover:text-white"
+                >
+                  English
+                </button>
+                <button
+                  type="button"
+                  id="lang-btn-bn"
+                  class="py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center bg-emerald-600 text-white shadow-sm"
+                >
+                  বাংলা
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTAINER (Mobile-First, max-w-md, zero vertical scroll) -->
+    <main class="w-full max-w-md px-2 sm:px-4 pt-1 sm:pt-2 pb-3 flex-1 flex flex-col">
+      
+      <!-- CALCULATOR VIEW -->
+      <div id="calculator-view" class="w-full space-y-1.5 sm:space-y-2">
+        
+        <!-- 1. RESULT CARD (Top Priority, prominent Total Customer Pays & Cashout Charge) -->
+        <section
+          id="result-card"
+          class="relative w-full rounded-2xl bg-gradient-to-b from-slate-800/95 to-slate-900 border border-slate-700/80 shadow-md p-2.5 sm:p-3 transition-all"
+        >
+          <!-- Top micro-line: MFS badge & Cashout Charge -->
+          <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-slate-700/50 text-[11px] sm:text-xs">
+            <div class="flex items-center gap-1.5 min-w-0">
+              <span
+                id="result-mfs-badge"
+                class="inline-flex items-center px-1.5 py-0.5 rounded-md font-semibold text-[10px] sm:text-[11px] border bg-pink-500/20 text-pink-300 border-pink-500/40"
+              >
+                bKash
+              </span>
+              <span class="text-slate-300 text-[11px] truncate">
+                <span id="label-cashout-charge">Cashout Charge</span>: <strong id="result-cashout-charge" class="text-slate-100 font-bold">৳0.00</strong>
+              </span>
+            </div>
+            <span id="result-fee-deduction" class="text-[10px] text-amber-400 font-medium whitespace-nowrap">
+              (Fee: -৳5.00)
+            </span>
+          </div>
+
+          <!-- Main hero line: TOTAL CUSTOMER PAYS (Large & Eye-Catching) + Copy button -->
+          <div class="pt-1.5 flex items-center justify-between gap-2">
+            <div class="min-w-0 flex-1">
+              <span id="label-total-customer-pays" class="block text-[10px] font-bold text-emerald-400 uppercase tracking-wider leading-none">
+                Total Customer Pays
+              </span>
+              <div id="result-total-pays" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight mt-0.5 truncate">
+                ৳0.00
+              </div>
+            </div>
+
+            <!-- Copy Total Button -->
+            <button
+              type="button"
+              id="copy-total-btn"
+              class="flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 shadow-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30"
+            >
+              <i data-lucide="copy" class="w-3.5 h-3.5" id="copy-icon"></i>
+              <span id="copy-total-text">Copy Total</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 2. MFS Selector, Amount Input, Quick Add & Keypad -->
+        <div class="rounded-2xl bg-slate-900/90 border border-slate-800/80 p-2 sm:p-2.5 shadow-sm space-y-1.5 sm:space-y-2">
+          
+          <!-- Side-by-Side: MFS Selector (5 cols) & Amount Input (7 cols) -->
+          <div class="grid grid-cols-12 gap-1.5 sm:gap-2">
+            
+            <!-- MFS Selector -->
+            <div class="col-span-5">
+              <label for="mfs-select" id="label-select-mfs" class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5 truncate">
+                Select MFS
+              </label>
+              <div class="relative">
+                <select
+                  id="mfs-select"
+                  class="w-full h-8 sm:h-9 appearance-none rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs font-semibold pl-2 pr-5 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-sm truncate"
+                >
+                  <option value="bkash">bKash (৳18.5/k)</option>
+                  <option value="nagad">Nagad (৳15.0/k)</option>
+                  <option value="rocket">Rocket (৳18.0/k)</option>
+                  <option value="upay">Upay (৳14.0/k)</option>
+                </select>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+              </div>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="col-span-7">
+              <div class="flex items-center justify-between mb-0.5">
+                <label for="amount-input" id="label-your-amount" class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">
+                  Your Amount
+                </label>
+                <button
+                  type="button"
+                  id="clear-amount-link"
+                  class="hidden text-[10px] text-slate-400 hover:text-slate-200 flex items-center gap-0.5 transition-colors"
+                >
+                  <i data-lucide="x-circle" class="w-2.5 h-2.5"></i>
+                  <span id="label-clear-link">Clear</span>
+                </button>
+              </div>
+
+              <div class="relative flex items-center">
+                <span class="absolute left-2 text-emerald-400 font-bold text-xs sm:text-sm pointer-events-none select-none">
+                  ৳
+                </span>
+                <input
+                  id="amount-input"
+                  type="text"
+                  inputmode="decimal"
+                  autocomplete="off"
+                  placeholder="0.00"
+                  class="w-full h-8 sm:h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs sm:text-sm font-bold pl-5 pr-2 py-1 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all shadow-sm tracking-wide"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Add Buttons Row -->
+          <div class="grid grid-cols-5 gap-1 pt-0.5">
+            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="500">+500</button>
+            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="1000">+1k</button>
+            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="2000">+2k</button>
+            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="5000">+5k</button>
+            <button type="button" id="quick-clear-btn" class="h-7 py-0.5 px-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 text-rose-400 hover:text-rose-300 text-[11px] font-semibold border border-rose-500/30 transition-all text-center">Clear</button>
+          </div>
+
+          <!-- Keypad Section -->
+          <div class="w-full space-y-1.5 pt-0.5">
+            <!-- Keypad Toggle Header -->
+            <div class="flex items-center justify-between px-0.5 text-[11px] text-slate-400">
+              <span id="keypad-mode-indicator" class="font-medium">Keypad</span>
+              <button
+                type="button"
+                id="toggle-keypad-btn"
+                class="flex items-center gap-1 text-[10px] font-medium text-emerald-400 hover:text-emerald-300 py-0.5 px-2 rounded-md bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 transition-colors"
+              >
+                <i data-lucide="smartphone" class="w-3 h-3" id="toggle-keypad-icon"></i>
+                <span id="toggle-keypad-label">Phone Keyboard</span>
+              </button>
+            </div>
+
+            <!-- Compact 4x3 Grid -->
+            <div id="keypad-grid" class="grid grid-cols-3 gap-1 sm:gap-1.5">
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="1">1</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="2">2</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="3">3</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="4">4</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="5">5</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="6">6</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="7">7</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="8">8</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="9">9</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="00">00</button>
+              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="0">0</button>
+              <button type="button" id="keypad-backspace" class="h-8 sm:h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 active:bg-slate-600 active:scale-95 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700/70 shadow-sm transition-all">
+                <i data-lucide="delete" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Reset and Save buttons side-by-side -->
+            <div class="grid grid-cols-2 gap-1.5 sm:gap-2 pt-0.5">
+              <button
+                type="button"
+                id="reset-calculator-btn"
+                class="h-8 sm:h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 active:scale-95 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 border border-slate-700/70 transition-all focus:outline-none focus:ring-2 focus:ring-rose-500/40"
+              >
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <span id="reset-btn-text">Reset</span>
+              </button>
+
+              <button
+                type="button"
+                id="save-calculation-btn"
+                class="h-8 sm:h-9 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 border transition-all active:scale-95 shadow-sm bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500/80 shadow-emerald-700/20"
+              >
+                <i data-lucide="bookmark-plus" class="w-3.5 h-3.5" id="save-icon"></i>
+                <span id="save-btn-text">Save</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. CALCULATION HISTORY SECTION -->
+        <section id="calculation-history-section" class="w-full mt-4 pt-3 border-t border-slate-800/80">
+          <div class="flex items-center justify-between mb-2.5">
+            <div class="flex items-center gap-1.5 text-slate-300 font-semibold text-xs sm:text-sm">
+              <i data-lucide="history" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span id="label-history-title">Calculation History</span>
+              <span id="history-count-badge" class="hidden px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px] text-slate-400 font-mono">0</span>
+            </div>
+
+            <button
+              type="button"
+              id="clear-history-btn"
+              class="hidden text-[11px] font-medium text-rose-400 hover:text-rose-300 flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-rose-500/10 transition-colors"
+            >
+              <i data-lucide="trash-2" class="w-3 h-3"></i>
+              <span id="label-clear-history">Clear History</span>
+            </button>
+          </div>
+
+          <!-- History Items Container -->
+          <div id="history-items-container" class="space-y-2">
+            <!-- Empty state -->
+            <div id="history-empty" class="rounded-xl border border-dashed border-slate-800 p-4 text-center text-xs text-slate-500">
+              No calculations saved yet
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ABOUT DEVELOPER VIEW (Hidden by default) -->
+      <div id="about-view" class="hidden w-full space-y-3 sm:space-y-4">
+        <div class="rounded-2xl bg-gradient-to-b from-slate-800/90 to-slate-900 border border-slate-700/80 p-5 sm:p-6 shadow-xl text-center space-y-4">
+          <!-- Profile Badge -->
+          <div class="mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-emerald-500/10 border-2 border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-inner">
+            <i data-lucide="user-check" class="w-8 h-8 sm:w-10 sm:h-10"></i>
+          </div>
+
+          <div class="space-y-1">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+              Musabber Himel
+            </h2>
+            <p class="text-xs sm:text-sm font-semibold text-emerald-400">
+              Full-Stack Developer &amp; UI/UX Designer
+            </p>
+          </div>
+
+          <p id="about-tagline" class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-sm mx-auto">
+            Simple, fast, and precise MFS cashout charge deduction for Bangladeshi merchants.
+          </p>
+
+          <div class="grid grid-cols-2 gap-2 text-left pt-2 border-t border-slate-700/60 text-xs">
+            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/40">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Focus</span>
+              <span class="text-slate-200 font-semibold">Merchant POS Tools</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/40">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Region</span>
+              <span class="text-slate-200 font-semibold">Bangladesh 🇧🇩</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="return-to-calc-btn"
+            class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span id="return-calc-label">← Cashout Charge</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Clear History Confirmation Modal -->
+      <div id="clear-history-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="w-full max-w-xs rounded-2xl bg-slate-900 border border-slate-700 p-4 shadow-2xl space-y-3">
+          <div class="flex items-center gap-2 text-rose-400 font-semibold text-sm">
+            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+            <span id="modal-clear-title">Clear History</span>
+          </div>
+          <p id="modal-clear-desc" class="text-xs text-slate-300 leading-relaxed">
+            Are you sure you want to clear all calculation history?
+          </p>
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <button
+              type="button"
+              id="cancel-clear-btn"
+              class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition-all"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              id="confirm-clear-btn"
+              class="py-2 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold transition-all shadow-sm shadow-rose-600/30"
+            >
+              Yes, Clear
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast Feedback Banner -->
+      <div
+        id="toast-banner"
+        class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-xl bg-slate-800 text-emerald-400 border border-emerald-500/40 shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all"
+      >
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span id="toast-text">Calculation saved to history ✓</span>
+      </div>
+
+    </main>
+
+    <!-- CLIENT-SIDE CALCULATION ENGINE SCRIPT -->
+    <script>
+      (function() {
+        // --- 1. MFS Rates & System Configurations ---
+        const MFS_RATES = {
+          bkash: {
+            name: "bKash",
+            bnName: "বিকাশ",
+            rate: 18.5,
+            sendMoneyFee: 5,
+            badgeBg: "bg-pink-500/20",
+            badgeText: "text-pink-300",
+            borderAccent: "border-pink-500/40"
+          },
+          nagad: {
+            name: "Nagad",
+            bnName: "নগদ",
+            rate: 15.0,
+            sendMoneyFee: 5,
+            badgeBg: "bg-orange-500/20",
+            badgeText: "text-orange-300",
+            borderAccent: "border-orange-500/40"
+          },
+          rocket: {
+            name: "Rocket",
+            bnName: "রকেট",
+            rate: 18.0,
+            sendMoneyFee: 0,
+            badgeBg: "bg-purple-500/20",
+            badgeText: "text-purple-300",
+            borderAccent: "border-purple-500/40"
+          },
+          upay: {
+            name: "Upay",
+            bnName: "উপায়",
+            rate: 14.0,
+            sendMoneyFee: 0,
+            badgeBg: "bg-amber-500/20",
+            badgeText: "text-amber-300",
+            borderAccent: "border-amber-500/40"
+          }
+        };
+
+        const TRANSLATIONS = {
+          en: {
+            title: "MFS Business Charge Calculator",
+            subtitle: "Personal Account Business Charging System",
+            menuCashoutCharge: "Cashout Charge",
+            menuAboutDeveloper: "About Developer",
+            menuLanguage: "Language / ভাষা",
+            selectMfs: "Select MFS",
+            yourAmount: "Your Amount",
+            cashoutCharge: "Cashout Charge",
+            totalCustomerPays: "Total Customer Pays",
+            copyTotal: "Copy Total",
+            copied: "Copied ✓",
+            reset: "Reset",
+            save: "Save",
+            saved: "Saved ✓",
+            clear: "Clear",
+            calculationHistory: "Calculation History",
+            clearHistory: "Clear History",
+            noHistory: "No calculations saved yet",
+            confirmClearHistory: "Are you sure you want to clear all calculation history?",
+            yesClear: "Yes, Clear",
+            cancel: "Cancel",
+            tagline: "Simple, fast, and precise MFS cashout charge deduction for Bangladeshi merchants.",
+            returnToCalc: "← Cashout Charge",
+            enterAmountFirst: "Please enter an amount to save",
+            savedSuccess: "Calculation saved to history ✓",
+            posKeypad: "Keypad",
+            phoneKeyboard: "Phone Keyboard"
+          },
+          bn: {
+            title: "এমএফএস বিজনেস চার্জ ক্যালকুলেটর",
+            subtitle: "পার্সোনাল অ্যাকাউন্ট বিজনেস চার্জিং সিস্টেম",
+            menuCashoutCharge: "ক্যাশআউট চার্জ",
+            menuAboutDeveloper: "ডেভেলপার সম্পর্কে",
+            menuLanguage: "ভাষা / Language",
+            selectMfs: "MFS নির্বাচন করুন",
+            yourAmount: "আপনার পরিমাণ",
+            cashoutCharge: "ক্যাশআউট চার্জ",
+            totalCustomerPays: "গ্রাহক মোট প্রদান করবে",
+            copyTotal: "মোট কপি করুন",
+            copied: "কপি হয়েছে ✓",
+            reset: "রিসেট",
+            save: "সংরক্ষণ",
+            saved: "সংরক্ষিত ✓",
+            clear: "মুছুন",
+            calculationHistory: "হিসাবের ইতিহাস",
+            clearHistory: "ইতিহাস মুছুন",
+            noHistory: "এখনো কোনো হিসাব সংরক্ষিত নেই",
+            confirmClearHistory: "আপনি কি নিশ্চিত যে সমস্ত হিসাবের ইতিহাস মুছে ফেলতে চান?",
+            yesClear: "হ্যাঁ, মুছুন",
+            cancel: "বাতিল",
+            tagline: "ব্যবসায়িক লেনদেনের জন্য গ্রাহকের কার্যকর চার্জ নির্ণয়ের সহজ ক্যালকুলেটর।",
+            returnToCalc: "← ক্যাশআউট চার্জ",
+            enterAmountFirst: "সংরক্ষণ করতে প্রথমে পরিমাণ লিখুন",
+            savedSuccess: "হিসাবটি সফলভাবে ইতিহাসে সংরক্ষিত হয়েছে ✓",
+            posKeypad: "কিপ্যাড",
+            phoneKeyboard: "ফোন কিবোর্ড"
+          }
+        };
+
+        // --- 2. Application State ---
+        let currentLang = localStorage.getItem('mfs_lang') || 'bn';
+        let selectedMfs = localStorage.getItem('mfs_selected') || 'bkash';
+        let rawAmount = '';
+        let showKeypad = localStorage.getItem('mfs_show_keypad') !== 'false';
+        let history = [];
+        try {
+          const stored = localStorage.getItem('mfs_calc_history');
+          if (stored) history = JSON.parse(stored) || [];
+        } catch(e) {
+          history = [];
+        }
+
+        // --- 3. DOM Elements ---
+        const amountInput = document.getElementById('amount-input');
+        const mfsSelect = document.getElementById('mfs-select');
+        const clearAmountLink = document.getElementById('clear-amount-link');
+        const quickClearBtn = document.getElementById('quick-clear-btn');
+        const resultMfsBadge = document.getElementById('result-mfs-badge');
+        const resultCashoutCharge = document.getElementById('result-cashout-charge');
+        const resultFeeDeduction = document.getElementById('result-fee-deduction');
+        const resultTotalPays = document.getElementById('result-total-pays');
+        const copyTotalBtn = document.getElementById('copy-total-btn');
+        const copyTotalText = document.getElementById('copy-total-text');
+        const copyIcon = document.getElementById('copy-icon');
+        const resetBtn = document.getElementById('reset-calculator-btn');
+        const saveBtn = document.getElementById('save-calculation-btn');
+        const saveBtnText = document.getElementById('save-btn-text');
+        const saveIcon = document.getElementById('save-icon');
+        const menuBtn = document.getElementById('menu-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const menuCalcBtn = document.getElementById('menu-calc-btn');
+        const menuAboutBtn = document.getElementById('menu-about-btn');
+        const langBtnEn = document.getElementById('lang-btn-en');
+        const langBtnBn = document.getElementById('lang-btn-bn');
+        const toggleKeypadBtn = document.getElementById('toggle-keypad-btn');
+        const keypadGrid = document.getElementById('keypad-grid');
+        const keypadModeIndicator = document.getElementById('keypad-mode-indicator');
+        const toggleKeypadLabel = document.getElementById('toggle-keypad-label');
+        const toggleKeypadIcon = document.getElementById('toggle-keypad-icon');
+        const calculatorView = document.getElementById('calculator-view');
+        const aboutView = document.getElementById('about-view');
+        const returnToCalcBtn = document.getElementById('return-to-calc-btn');
+        const historyContainer = document.getElementById('history-items-container');
+        const historyCountBadge = document.getElementById('history-count-badge');
+        const clearHistoryBtn = document.getElementById('clear-history-btn');
+        const clearHistoryModal = document.getElementById('clear-history-modal');
+        const cancelClearBtn = document.getElementById('cancel-clear-btn');
+        const confirmClearBtn = document.getElementById('confirm-clear-btn');
+        const toastBanner = document.getElementById('toast-banner');
+        const toastText = document.getElementById('toast-text');
+
+        // --- 4. Utilities ---
+        function formatBDT(num) {
+          if (isNaN(num) || num === null || num === undefined) return '৳0.00';
+          return '৳' + Number(num).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
+        }
+
+        let toastTimer = null;
+        function showToast(msg) {
+          if (toastTimer) clearTimeout(toastTimer);
+          toastText.textContent = msg;
+          toastBanner.classList.remove('hidden');
+          toastTimer = setTimeout(() => {
+            toastBanner.classList.add('hidden');
+          }, 2500);
+        }
+
+        // --- 5. Calculation Engine ---
+        function calculate() {
+          const num = parseFloat(rawAmount) || 0;
+          const config = MFS_RATES[selectedMfs] || MFS_RATES.bkash;
+          
+          const baseCharge = (num * config.rate) / 1000;
+          const sendMoneyFee = config.sendMoneyFee;
+          const netCharge = Math.max(0, baseCharge - sendMoneyFee);
+          const total = num + netCharge;
+
+          // Update UI
+          resultCashoutCharge.textContent = formatBDT(baseCharge);
+          resultTotalPays.textContent = formatBDT(total);
+
+          if (sendMoneyFee > 0) {
+            resultFeeDeduction.textContent = `(Fee: -${formatBDT(sendMoneyFee)})`;
+            resultFeeDeduction.classList.remove('hidden');
+          } else {
+            resultFeeDeduction.classList.add('hidden');
+          }
+
+          const mfsName = currentLang === 'bn' ? config.bnName : config.name;
+          resultMfsBadge.textContent = mfsName;
+          resultMfsBadge.className = `inline-flex items-center px-1.5 py-0.5 rounded-md font-semibold text-[10px] sm:text-[11px] border ${config.badgeBg} ${config.badgeText} ${config.borderAccent}`;
+
+          if (rawAmount && rawAmount !== '0') {
+            clearAmountLink.classList.remove('hidden');
+          } else {
+            clearAmountLink.classList.add('hidden');
+          }
+        }
+
+        // --- 6. Language & Localization ---
+        function applyLanguage() {
+          const t = TRANSLATIONS[currentLang];
+          document.documentElement.lang = currentLang;
+
+          if (currentLang === 'bn') {
+            document.body.classList.add('lang-bn');
+            langBtnBn.className = "py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center bg-emerald-600 text-white shadow-sm";
+            langBtnEn.className = "py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center text-slate-400 hover:text-white";
+          } else {
+            document.body.classList.remove('lang-bn');
+            langBtnEn.className = "py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center bg-emerald-600 text-white shadow-sm";
+            langBtnBn.className = "py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center text-slate-400 hover:text-white";
+          }
+
+          document.getElementById('header-title').textContent = t.title;
+          document.getElementById('header-subtitle').textContent = t.subtitle;
+          document.getElementById('menu-label-calc').textContent = t.menuCashoutCharge;
+          document.getElementById('menu-label-about').textContent = t.menuAboutDeveloper;
+          document.getElementById('menu-label-lang').textContent = t.menuLanguage;
+          document.getElementById('label-cashout-charge').textContent = t.cashoutCharge;
+          document.getElementById('label-total-customer-pays').textContent = t.totalCustomerPays;
+          document.getElementById('label-select-mfs').textContent = t.selectMfs;
+          document.getElementById('label-your-amount').textContent = t.yourAmount;
+          document.getElementById('label-clear-link').textContent = t.clear;
+          quickClearBtn.textContent = t.clear;
+          document.getElementById('reset-btn-text').textContent = t.reset;
+          saveBtnText.textContent = t.save;
+          document.getElementById('label-history-title').textContent = t.calculationHistory;
+          document.getElementById('label-clear-history').textContent = t.clearHistory;
+          document.getElementById('about-tagline').textContent = t.tagline;
+          document.getElementById('return-calc-label').textContent = t.returnToCalc;
+          document.getElementById('modal-clear-title').textContent = t.clearHistory;
+          document.getElementById('modal-clear-desc').textContent = t.confirmClearHistory;
+          document.getElementById('cancel-clear-btn').textContent = t.cancel;
+          document.getElementById('confirm-clear-btn').textContent = t.yesClear;
+          copyTotalText.textContent = t.copyTotal;
+
+          // Update MFS Options
+          mfsSelect.innerHTML = `
+            <option value="bkash">${currentLang === 'bn' ? MFS_RATES.bkash.bnName : MFS_RATES.bkash.name} (৳${MFS_RATES.bkash.rate}/k)</option>
+            <option value="nagad">${currentLang === 'bn' ? MFS_RATES.nagad.bnName : MFS_RATES.nagad.name} (৳${MFS_RATES.nagad.rate}/k)</option>
+            <option value="rocket">${currentLang === 'bn' ? MFS_RATES.rocket.bnName : MFS_RATES.rocket.name} (৳${MFS_RATES.rocket.rate}/k)</option>
+            <option value="upay">${currentLang === 'bn' ? MFS_RATES.upay.bnName : MFS_RATES.upay.name} (৳${MFS_RATES.upay.rate}/k)</option>
+          `;
+          mfsSelect.value = selectedMfs;
+
+          updateKeypadView();
+          renderHistory();
+          calculate();
+          if (window.lucide) window.lucide.createIcons();
+        }
+
+        // --- 7. Keypad Display Mode ---
+        function updateKeypadView() {
+          const t = TRANSLATIONS[currentLang];
+          if (showKeypad) {
+            keypadGrid.classList.remove('hidden');
+            keypadModeIndicator.textContent = t.posKeypad;
+            toggleKeypadLabel.textContent = t.phoneKeyboard;
+          } else {
+            keypadGrid.classList.add('hidden');
+            keypadModeIndicator.textContent = t.phoneKeyboard;
+            toggleKeypadLabel.textContent = t.posKeypad;
+          }
+        }
+
+        // --- 8. History Engine ---
+        function renderHistory() {
+          const t = TRANSLATIONS[currentLang];
+          if (history.length === 0) {
+            historyContainer.innerHTML = `
+              <div class="rounded-xl border border-dashed border-slate-800 p-4 text-center text-xs text-slate-500">
+                ${t.noHistory}
+              </div>
+            `;
+            historyCountBadge.classList.add('hidden');
+            clearHistoryBtn.classList.add('hidden');
+            return;
+          }
+
+          historyCountBadge.textContent = history.length;
+          historyCountBadge.classList.remove('hidden');
+          clearHistoryBtn.classList.remove('hidden');
+
+          let html = '';
+          history.forEach((item) => {
+            const config = MFS_RATES[item.mfsKey] || MFS_RATES.bkash;
+            const displayName = currentLang === 'bn' ? config.bnName : config.name;
+            const feeText = item.sendMoneyFee > 0 ? `-${formatBDT(item.sendMoneyFee)}` : '৳0.00';
+
+            html += `
+              <div class="history-card group relative rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-700/80 p-3 transition-all cursor-pointer shadow-sm text-xs" data-id="${item.id}">
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <div class="flex items-center gap-1.5">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-md font-semibold text-[11px] border ${config.badgeBg} ${config.badgeText} ${config.borderAccent}">
+                      ${displayName}
+                    </span>
+                    <span class="text-[11px] text-slate-400 font-medium">
+                      ${item.formattedDate}
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <button type="button" class="history-copy-btn p-1 rounded-md text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors" data-total="${item.total}" title="${t.copyTotal}">
+                      <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <button type="button" class="history-del-btn p-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors" data-id="${item.id}" title="Delete">
+                      <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <span class="p-1 text-slate-500 group-hover:text-emerald-400 transition-colors">
+                      <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">${t.yourAmount}</span>
+                    <span class="font-semibold text-slate-200">${formatBDT(item.amount)}</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">${t.cashoutCharge}</span>
+                    <span class="font-medium text-slate-300">${formatBDT(item.baseCharge)}</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">Send Fee</span>
+                    <span class="font-medium text-amber-400/90">${feeText}</span>
+                  </div>
+                  <div class="text-left sm:text-right">
+                    <span class="text-emerald-400/90 block text-[10px] font-semibold">${t.totalCustomerPays}</span>
+                    <span class="font-bold text-emerald-400 text-xs">${formatBDT(item.total)}</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+
+          historyContainer.innerHTML = html;
+          if (window.lucide) window.lucide.createIcons();
+
+          // Attach click listeners to cards
+          document.querySelectorAll('.history-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+              if (e.target.closest('.history-copy-btn') || e.target.closest('.history-del-btn')) return;
+              const id = card.getAttribute('data-id');
+              const item = history.find(h => h.id === id);
+              if (item) {
+                selectedMfs = item.mfsKey;
+                mfsSelect.value = selectedMfs;
+                localStorage.setItem('mfs_selected', selectedMfs);
+                rawAmount = String(item.amount);
+                amountInput.value = rawAmount;
+                calculate();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            });
+          });
+
+          // Attach copy button listeners
+          document.querySelectorAll('.history-copy-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              e.stopPropagation();
+              const totalVal = Number(btn.getAttribute('data-total'));
+              const formatted = formatBDT(totalVal);
+              try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                  await navigator.clipboard.writeText(formatted);
+                } else {
+                  const ta = document.createElement('textarea');
+                  ta.value = formatted;
+                  document.body.appendChild(ta);
+                  ta.select();
+                  document.execCommand('copy');
+                  document.body.removeChild(ta);
+                }
+                showToast(`${t.copied} (${formatted})`);
+              } catch(err) {
+                console.error(err);
+              }
+            });
+          });
+
+          // Attach delete button listeners
+          document.querySelectorAll('.history-del-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const id = btn.getAttribute('data-id');
+              history = history.filter(h => h.id !== id);
+              localStorage.setItem('mfs_calc_history', JSON.stringify(history));
+              renderHistory();
+            });
+          });
+        }
+
+        function saveCurrentCalculation() {
+          const t = TRANSLATIONS[currentLang];
+          const num = parseFloat(rawAmount) || 0;
+          if (num <= 0) {
+            showToast(t.enterAmountFirst);
+            return;
+          }
+
+          const config = MFS_RATES[selectedMfs] || MFS_RATES.bkash;
+          const baseCharge = (num * config.rate) / 1000;
+          const sendMoneyFee = config.sendMoneyFee;
+          const netCharge = Math.max(0, baseCharge - sendMoneyFee);
+          const total = num + netCharge;
+
+          const now = new Date();
+          const formattedDate = now.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          });
+
+          const newItem = {
+            id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+            mfsKey: selectedMfs,
+            amount: num,
+            baseCharge: baseCharge,
+            sendMoneyFee: sendMoneyFee,
+            netCharge: netCharge,
+            total: total,
+            timestamp: Date.now(),
+            formattedDate: formattedDate
+          };
+
+          history.unshift(newItem);
+          if (history.length > 50) history.pop();
+          localStorage.setItem('mfs_calc_history', JSON.stringify(history));
+
+          // Visual feedback on save button
+          saveBtn.classList.add('bg-emerald-500', 'ring-2', 'ring-emerald-400');
+          saveBtnText.textContent = t.saved;
+          saveIcon.setAttribute('data-lucide', 'check');
+          if (window.lucide) window.lucide.createIcons();
+
+          showToast(t.savedSuccess);
+          renderHistory();
+
+          setTimeout(() => {
+            saveBtn.classList.remove('bg-emerald-500', 'ring-2', 'ring-emerald-400');
+            saveBtnText.textContent = t.save;
+            saveIcon.setAttribute('data-lucide', 'bookmark-plus');
+            if (window.lucide) window.lucide.createIcons();
+          }, 2000);
+        }
+
+        // --- 9. Event Listeners ---
+        // Amount input typing
+        amountInput.addEventListener('input', (e) => {
+          let val = e.target.value.replace(/[^0-9.]/g, '');
+          const parts = val.split('.');
+          if (parts.length > 2) val = parts[0] + '.' + parts.slice(1).join('');
+          if (parts.length === 2 && parts[1].length > 2) val = parts[0] + '.' + parts[1].slice(0, 2);
+          if (val.length > 9) val = val.slice(0, 9);
+          rawAmount = val;
+          e.target.value = rawAmount;
+          calculate();
+        });
+
+        // MFS Select change
+        mfsSelect.addEventListener('change', (e) => {
+          selectedMfs = e.target.value;
+          localStorage.setItem('mfs_selected', selectedMfs);
+          calculate();
+        });
+
+        // Quick add buttons
+        document.querySelectorAll('.quick-add-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const addVal = parseFloat(btn.getAttribute('data-val')) || 0;
+            const currentVal = parseFloat(rawAmount) || 0;
+            rawAmount = String(currentVal + addVal);
+            amountInput.value = rawAmount;
+            calculate();
+          });
+        });
+
+        // Quick clear / Clear links
+        function clearInput() {
+          rawAmount = '';
+          amountInput.value = '';
+          calculate();
+        }
+        clearAmountLink.addEventListener('click', clearInput);
+        quickClearBtn.addEventListener('click', clearInput);
+
+        // Keypad key clicks
+        document.querySelectorAll('.keypad-key').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const key = btn.getAttribute('data-key');
+            if (key === '00') {
+              if (!rawAmount || rawAmount === '0') {
+                rawAmount = '0';
+              } else if (rawAmount.length <= 7) {
+                rawAmount += '00';
+              }
+            } else if (key === '0') {
+              if (rawAmount === '0') return;
+              if (rawAmount.length < 8) rawAmount += '0';
+            } else {
+              if (rawAmount === '0') rawAmount = key;
+              else if (rawAmount.length < 8) rawAmount += key;
+            }
+            amountInput.value = rawAmount;
+            calculate();
+          });
+        });
+
+        // Keypad backspace
+        document.getElementById('keypad-backspace').addEventListener('click', () => {
+          if (rawAmount.length > 0) {
+            rawAmount = rawAmount.slice(0, -1);
+            amountInput.value = rawAmount;
+            calculate();
+          }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', () => {
+          rawAmount = '';
+          amountInput.value = '';
+          selectedMfs = 'bkash';
+          mfsSelect.value = 'bkash';
+          localStorage.setItem('mfs_selected', 'bkash');
+          calculate();
+        });
+
+        // Save button
+        saveBtn.addEventListener('click', saveCurrentCalculation);
+
+        // Copy Total button
+        copyTotalBtn.addEventListener('click', async () => {
+          const t = TRANSLATIONS[currentLang];
+          const num = parseFloat(rawAmount) || 0;
+          const config = MFS_RATES[selectedMfs] || MFS_RATES.bkash;
+          const baseCharge = (num * config.rate) / 1000;
+          const sendMoneyFee = config.sendMoneyFee;
+          const netCharge = Math.max(0, baseCharge - sendMoneyFee);
+          const total = num + netCharge;
+          const formatted = formatBDT(total);
+
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(formatted);
+            } else {
+              const ta = document.createElement('textarea');
+              ta.value = formatted;
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+            }
+
+            copyTotalText.textContent = t.copied;
+            copyIcon.setAttribute('data-lucide', 'check');
+            copyTotalBtn.classList.add('bg-emerald-500');
+            if (window.lucide) window.lucide.createIcons();
+
+            if (num > 0) {
+              // Auto-log to history on copy
+              saveCurrentCalculation();
+            }
+
+            setTimeout(() => {
+              copyTotalText.textContent = t.copyTotal;
+              copyIcon.setAttribute('data-lucide', 'copy');
+              copyTotalBtn.classList.remove('bg-emerald-500');
+              if (window.lucide) window.lucide.createIcons();
+            }, 1800);
+          } catch(err) {
+            console.error(err);
+          }
+        });
+
+        // Keypad Toggle
+        toggleKeypadBtn.addEventListener('click', () => {
+          showKeypad = !showKeypad;
+          localStorage.setItem('mfs_show_keypad', showKeypad);
+          updateKeypadView();
+          if (window.lucide) window.lucide.createIcons();
+        });
+
+        // Corner Menu Open/Close
+        menuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          dropdownMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+          if (!dropdownMenu.contains(e.target) && e.target !== menuBtn) {
+            dropdownMenu.classList.add('hidden');
+          }
+        });
+
+        // View Navigation
+        function showCalculatorView() {
+          calculatorView.classList.remove('hidden');
+          aboutView.classList.add('hidden');
+          menuCalcBtn.classList.add('bg-slate-800/60', 'text-emerald-400');
+          menuCalcBtn.classList.remove('text-slate-300');
+          menuAboutBtn.classList.remove('bg-slate-800/60', 'text-emerald-400');
+          menuAboutBtn.classList.add('text-slate-300');
+          dropdownMenu.classList.add('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function showAboutView() {
+          calculatorView.classList.add('hidden');
+          aboutView.classList.remove('hidden');
+          menuAboutBtn.classList.add('bg-slate-800/60', 'text-emerald-400');
+          menuAboutBtn.classList.remove('text-slate-300');
+          menuCalcBtn.classList.remove('bg-slate-800/60', 'text-emerald-400');
+          menuCalcBtn.classList.add('text-slate-300');
+          dropdownMenu.classList.add('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        menuCalcBtn.addEventListener('click', showCalculatorView);
+        menuAboutBtn.addEventListener('click', showAboutView);
+        returnToCalcBtn.addEventListener('click', showCalculatorView);
+
+        // Language Buttons
+        langBtnEn.addEventListener('click', () => {
+          currentLang = 'en';
+          localStorage.setItem('mfs_lang', 'en');
+          applyLanguage();
+        });
+        langBtnBn.addEventListener('click', () => {
+          currentLang = 'bn';
+          localStorage.setItem('mfs_lang', 'bn');
+          applyLanguage();
+        });
+
+        // Clear History Modal
+        clearHistoryBtn.addEventListener('click', () => {
+          clearHistoryModal.classList.remove('hidden');
+        });
+        cancelClearBtn.addEventListener('click', () => {
+          clearHistoryModal.classList.add('hidden');
+        });
+        confirmClearBtn.addEventListener('click', () => {
+          history = [];
+          localStorage.setItem('mfs_calc_history', JSON.stringify(history));
+          clearHistoryModal.classList.add('hidden');
+          renderHistory();
+        });
+
+        // --- 10. Initial Boot ---
+        applyLanguage();
+        renderHistory();
+        window.addEventListener('load', () => {
+          if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+        });
+      })();
+    </script>
   </body>
 </html>
-
