@@ -1,0 +1,6 @@
+{
+  "name": "MFS Business Charge Calculator",
+  "description": "Personal Account Business Charging System for small businesses in Bangladesh calculating effective customer charges for bKash, Nagad, Rocket, and Upay.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
