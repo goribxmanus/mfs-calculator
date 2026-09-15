@@ -64,16 +64,16 @@
   <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center selection:bg-emerald-500 selection:text-white pb-6 antialiased">
 
     <!-- TOP HEADER -->
-    <header class="relative w-full border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md px-3 py-1.5 sm:px-5 sm:py-2.5 z-30 sticky top-0">
+    <header class="relative w-full border-b border-slate-800/80 bg-slate-900/95 backdrop-blur-md px-3.5 py-2.5 sm:px-5 sm:py-3.5 z-30 sticky top-0">
       <div class="max-w-md mx-auto flex items-center justify-between gap-2">
         <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-1.5">
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <h1 id="header-title" class="text-sm sm:text-base font-bold text-slate-100 tracking-tight truncate">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <h1 id="header-title" class="text-base sm:text-lg font-bold text-slate-100 tracking-tight truncate">
               MFS Business Charge Calculator
             </h1>
           </div>
-          <p id="header-subtitle" class="text-[10px] sm:text-xs text-slate-400 font-medium tracking-normal truncate">
+          <p id="header-subtitle" class="text-xs text-slate-400 font-medium tracking-normal truncate mt-0.5">
             Personal Account Business Charging System
           </p>
         </div>
@@ -84,21 +84,21 @@
             type="button"
             id="menu-button"
             aria-label="Application Menu"
-            class="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg bg-slate-800/90 hover:bg-slate-700/80 active:scale-95 text-slate-200 border border-slate-700/70 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+            class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
           >
-            <i data-lucide="menu" class="w-4 h-4" id="menu-icon"></i>
+            <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
           </button>
 
           <!-- Dropdown Menu -->
           <div
             id="dropdown-menu"
-            class="hidden absolute right-0 top-full mt-2 w-56 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150"
+            class="hidden absolute right-0 top-full mt-2 w-60 rounded-2xl bg-slate-900 border border-slate-700/90 shadow-2xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150"
           >
             <!-- 1. Cashout Charge Screen -->
             <button
               type="button"
               id="menu-calc-btn"
-              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-400 bg-slate-800/60 hover:bg-slate-800 transition-colors text-left"
+              class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-emerald-400 bg-slate-800/80 hover:bg-slate-800 transition-colors text-left"
             >
               <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i>
               <span id="menu-label-calc">Cashout Charge</span>
@@ -108,31 +108,31 @@
             <button
               type="button"
               id="menu-about-btn"
-              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors text-left mt-1"
+              class="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors text-left mt-1"
             >
               <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
               <span id="menu-label-about">About Developer</span>
             </button>
 
-            <div class="my-1.5 border-t border-slate-800"></div>
+            <div class="my-2 border-t border-slate-800"></div>
 
             <!-- 3. Language Switcher -->
-            <div class="px-3 py-1">
-              <span id="menu-label-lang" class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+            <div class="px-3 py-1.5">
+              <span id="menu-label-lang" class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
                 Language / ভাষা
               </span>
-              <div class="grid grid-cols-2 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+              <div class="grid grid-cols-2 gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800">
                 <button
                   type="button"
                   id="lang-btn-en"
-                  class="py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center text-slate-400 hover:text-white"
+                  class="py-1.5 px-2 rounded-lg text-xs font-semibold transition-all text-center text-slate-400 hover:text-white"
                 >
                   English
                 </button>
                 <button
                   type="button"
                   id="lang-btn-bn"
-                  class="py-1 px-2 rounded-lg text-xs font-semibold transition-all text-center bg-emerald-600 text-white shadow-sm"
+                  class="py-1.5 px-2 rounded-lg text-xs font-semibold transition-all text-center bg-emerald-600 text-white shadow-sm"
                 >
                   বাংলা
                 </button>
@@ -143,42 +143,42 @@
       </div>
     </header>
 
-    <!-- MAIN CONTAINER (Mobile-First, max-w-md, zero vertical scroll) -->
-    <main class="w-full max-w-md px-2 sm:px-4 pt-1 sm:pt-2 pb-3 flex-1 flex flex-col">
+    <!-- MAIN CONTAINER (Mobile-First, max-w-md, with natural scroll for history) -->
+    <main class="w-full max-w-md px-3 sm:px-4 pt-2.5 sm:pt-3.5 pb-8 flex-1 flex flex-col">
       
       <!-- CALCULATOR VIEW -->
-      <div id="calculator-view" class="w-full space-y-1.5 sm:space-y-2">
+      <div id="calculator-view" class="w-full space-y-2.5 sm:space-y-3">
         
         <!-- 1. RESULT CARD (Top Priority, prominent Total Customer Pays & Cashout Charge) -->
         <section
           id="result-card"
-          class="relative w-full rounded-2xl bg-gradient-to-b from-slate-800/95 to-slate-900 border border-slate-700/80 shadow-md p-2.5 sm:p-3 transition-all"
+          class="relative w-full rounded-2xl bg-gradient-to-b from-slate-800/95 to-slate-900 border border-slate-700/80 shadow-md p-3.5 sm:p-4 transition-all"
         >
-          <!-- Top micro-line: MFS badge & Cashout Charge -->
-          <div class="flex items-center justify-between gap-2 pb-1.5 border-b border-slate-700/50 text-[11px] sm:text-xs">
-            <div class="flex items-center gap-1.5 min-w-0">
+          <!-- Top row: MFS badge & Cashout Charge -->
+          <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-700/60 text-xs sm:text-sm">
+            <div class="flex items-center gap-2 min-w-0">
               <span
                 id="result-mfs-badge"
-                class="inline-flex items-center px-1.5 py-0.5 rounded-md font-semibold text-[10px] sm:text-[11px] border bg-pink-500/20 text-pink-300 border-pink-500/40"
+                class="inline-flex items-center px-2 py-0.5 rounded-md font-bold text-xs sm:text-sm border bg-pink-500/20 text-pink-300 border-pink-500/40"
               >
                 bKash
               </span>
-              <span class="text-slate-300 text-[11px] truncate">
-                <span id="label-cashout-charge">Cashout Charge</span>: <strong id="result-cashout-charge" class="text-slate-100 font-bold">৳0.00</strong>
+              <span class="text-slate-300 truncate">
+                <span id="label-cashout-charge">Cashout Charge</span>: <strong id="result-cashout-charge" class="text-slate-100 font-bold text-sm sm:text-base">৳0.00</strong>
               </span>
             </div>
-            <span id="result-fee-deduction" class="text-[10px] text-amber-400 font-medium whitespace-nowrap">
+            <span id="result-fee-deduction" class="text-xs text-amber-400 font-semibold whitespace-nowrap">
               (Fee: -৳5.00)
             </span>
           </div>
 
           <!-- Main hero line: TOTAL CUSTOMER PAYS (Large & Eye-Catching) + Copy button -->
-          <div class="pt-1.5 flex items-center justify-between gap-2">
+          <div class="pt-2 flex items-center justify-between gap-3">
             <div class="min-w-0 flex-1">
-              <span id="label-total-customer-pays" class="block text-[10px] font-bold text-emerald-400 uppercase tracking-wider leading-none">
+              <span id="label-total-customer-pays" class="block text-xs sm:text-sm font-bold text-emerald-400 uppercase tracking-wider leading-none">
                 Total Customer Pays
               </span>
-              <div id="result-total-pays" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight mt-0.5 truncate">
+              <div id="result-total-pays" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mt-1 truncate">
                 ৳0.00
               </div>
             </div>
@@ -187,57 +187,57 @@
             <button
               type="button"
               id="copy-total-btn"
-              class="flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 shadow-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30"
+              class="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 shadow-md bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30"
             >
-              <i data-lucide="copy" class="w-3.5 h-3.5" id="copy-icon"></i>
+              <i data-lucide="copy" class="w-4 h-4" id="copy-icon"></i>
               <span id="copy-total-text">Copy Total</span>
             </button>
           </div>
         </section>
 
         <!-- 2. MFS Selector, Amount Input, Quick Add & Keypad -->
-        <div class="rounded-2xl bg-slate-900/90 border border-slate-800/80 p-2 sm:p-2.5 shadow-sm space-y-1.5 sm:space-y-2">
+        <div class="rounded-2xl bg-slate-900/90 border border-slate-800/80 p-3 sm:p-4 shadow-sm space-y-2.5 sm:space-y-3">
           
-          <!-- Side-by-Side: MFS Selector (5 cols) & Amount Input (7 cols) -->
-          <div class="grid grid-cols-12 gap-1.5 sm:gap-2">
+          <!-- Side-by-Side: MFS Selector & Amount Input -->
+          <div class="grid grid-cols-12 gap-2 sm:gap-2.5">
             
-            <!-- MFS Selector -->
+            <!-- MFS Selector (5 cols) -->
             <div class="col-span-5">
-              <label for="mfs-select" id="label-select-mfs" class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5 truncate">
+              <label for="mfs-select" id="label-select-mfs" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1 truncate">
                 Select MFS
               </label>
               <div class="relative">
                 <select
                   id="mfs-select"
-                  class="w-full h-8 sm:h-9 appearance-none rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs font-semibold pl-2 pr-5 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-sm truncate"
+                  class="w-full h-11 sm:h-12 appearance-none rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs sm:text-sm font-bold pl-2.5 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-sm truncate"
                 >
                   <option value="bkash">bKash (৳18.5/k)</option>
                   <option value="nagad">Nagad (৳15.0/k)</option>
                   <option value="rocket">Rocket (৳18.0/k)</option>
                   <option value="upay">Upay (৳14.0/k)</option>
                 </select>
-                <i data-lucide="chevron-down" class="w-3.5 h-3.5 absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                <i data-lucide="chevron-down" class="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
               </div>
             </div>
 
-            <!-- Amount Input -->
+            <!-- Amount Input (7 cols) -->
             <div class="col-span-7">
-              <div class="flex items-center justify-between mb-0.5">
-                <label for="amount-input" id="label-your-amount" class="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate">
+              <div class="flex items-center justify-between mb-1">
+                <label for="amount-input" id="label-your-amount" class="block text-xs font-bold text-slate-300 uppercase tracking-wider truncate">
                   Your Amount
                 </label>
                 <button
                   type="button"
                   id="clear-amount-link"
-                  class="hidden text-[10px] text-slate-400 hover:text-slate-200 flex items-center gap-0.5 transition-colors"
+                  class="hidden text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1 transition-colors"
                 >
-                  <i data-lucide="x-circle" class="w-2.5 h-2.5"></i>
+                  <i data-lucide="x-circle" class="w-3 h-3"></i>
                   <span id="label-clear-link">Clear</span>
                 </button>
               </div>
 
               <div class="relative flex items-center">
-                <span class="absolute left-2 text-emerald-400 font-bold text-xs sm:text-sm pointer-events-none select-none">
+                <span class="absolute left-3 text-emerald-400 font-bold text-base sm:text-lg pointer-events-none select-none">
                   ৳
                 </span>
                 <input
@@ -246,100 +246,100 @@
                   inputmode="decimal"
                   autocomplete="off"
                   placeholder="0.00"
-                  class="w-full h-8 sm:h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs sm:text-sm font-bold pl-5 pr-2 py-1 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all shadow-sm tracking-wide"
+                  class="w-full h-11 sm:h-12 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-base sm:text-lg font-bold pl-8 pr-3 py-2 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all shadow-sm tracking-wide"
                 />
               </div>
             </div>
           </div>
 
           <!-- Quick Add Buttons Row -->
-          <div class="grid grid-cols-5 gap-1 pt-0.5">
-            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="500">+500</button>
-            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="1000">+1k</button>
-            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="2000">+2k</button>
-            <button type="button" class="quick-add-btn h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center" data-val="5000">+5k</button>
-            <button type="button" id="quick-clear-btn" class="h-7 py-0.5 px-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 text-rose-400 hover:text-rose-300 text-[11px] font-semibold border border-rose-500/30 transition-all text-center">Clear</button>
+          <div class="grid grid-cols-5 gap-1.5 sm:gap-2 pt-0.5">
+            <button type="button" class="quick-add-btn h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white text-xs sm:text-sm font-bold border border-slate-700/80 transition-all text-center" data-val="500">+500</button>
+            <button type="button" class="quick-add-btn h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white text-xs sm:text-sm font-bold border border-slate-700/80 transition-all text-center" data-val="1000">+1k</button>
+            <button type="button" class="quick-add-btn h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white text-xs sm:text-sm font-bold border border-slate-700/80 transition-all text-center" data-val="2000">+2k</button>
+            <button type="button" class="quick-add-btn h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white text-xs sm:text-sm font-bold border border-slate-700/80 transition-all text-center" data-val="5000">+5k</button>
+            <button type="button" id="quick-clear-btn" class="h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 text-rose-400 hover:text-rose-300 text-xs sm:text-sm font-bold border border-rose-500/30 transition-all text-center">Clear</button>
           </div>
 
           <!-- Keypad Section -->
-          <div class="w-full space-y-1.5 pt-0.5">
+          <div class="w-full space-y-2 pt-1">
             <!-- Keypad Toggle Header -->
-            <div class="flex items-center justify-between px-0.5 text-[11px] text-slate-400">
-              <span id="keypad-mode-indicator" class="font-medium">Keypad</span>
+            <div class="flex items-center justify-between px-1 text-xs text-slate-400">
+              <span id="keypad-mode-indicator" class="font-semibold text-slate-300">Keypad</span>
               <button
                 type="button"
                 id="toggle-keypad-btn"
-                class="flex items-center gap-1 text-[10px] font-medium text-emerald-400 hover:text-emerald-300 py-0.5 px-2 rounded-md bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 transition-colors"
+                class="flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 py-1 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
               >
-                <i data-lucide="smartphone" class="w-3 h-3" id="toggle-keypad-icon"></i>
+                <i data-lucide="smartphone" class="w-3.5 h-3.5" id="toggle-keypad-icon"></i>
                 <span id="toggle-keypad-label">Phone Keyboard</span>
               </button>
             </div>
 
-            <!-- Compact 4x3 Grid -->
-            <div id="keypad-grid" class="grid grid-cols-3 gap-1 sm:gap-1.5">
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="1">1</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="2">2</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="3">3</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="4">4</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="5">5</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="6">6</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="7">7</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="8">8</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="9">9</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="00">00</button>
-              <button type="button" class="keypad-key h-8 sm:h-9 rounded-xl bg-slate-800 hover:bg-slate-700/90 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-sm sm:text-base flex items-center justify-center border border-slate-700/70 shadow-sm transition-all" data-key="0">0</button>
-              <button type="button" id="keypad-backspace" class="h-8 sm:h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 active:bg-slate-600 active:scale-95 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700/70 shadow-sm transition-all">
-                <i data-lucide="delete" class="w-4 h-4"></i>
+            <!-- Compact 4x3 Grid (Bigger, Touch-friendly h-11 sm:h-12) -->
+            <div id="keypad-grid" class="grid grid-cols-3 gap-1.5 sm:gap-2">
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="1">1</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="2">2</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="3">3</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="4">4</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="5">5</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="6">6</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="7">7</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="8">8</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="9">9</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="00">00</button>
+              <button type="button" class="keypad-key h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-100 font-bold text-lg sm:text-xl flex items-center justify-center border border-slate-700/80 shadow-sm transition-all" data-key="0">0</button>
+              <button type="button" id="keypad-backspace" class="h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-slate-600 active:scale-95 text-slate-300 hover:text-white flex items-center justify-center border border-slate-700/80 shadow-sm transition-all">
+                <i data-lucide="delete" class="w-5 h-5"></i>
               </button>
             </div>
 
-            <!-- Reset and Save buttons side-by-side -->
-            <div class="grid grid-cols-2 gap-1.5 sm:gap-2 pt-0.5">
+            <!-- Reset and Save buttons side-by-side (h-11 sm:h-12, bold & easy to hit) -->
+            <div class="grid grid-cols-2 gap-2 pt-1">
               <button
                 type="button"
                 id="reset-calculator-btn"
-                class="h-8 sm:h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 active:scale-95 text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 border border-slate-700/70 transition-all focus:outline-none focus:ring-2 focus:ring-rose-500/40"
+                class="h-11 sm:h-12 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 border border-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-rose-500/40 shadow-sm"
               >
-                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
                 <span id="reset-btn-text">Reset</span>
               </button>
 
               <button
                 type="button"
                 id="save-calculation-btn"
-                class="h-8 sm:h-9 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 border transition-all active:scale-95 shadow-sm bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500/80 shadow-emerald-700/20"
+                class="h-11 sm:h-12 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 border transition-all active:scale-95 shadow-md bg-emerald-600 hover:bg-emerald-500 text-white border-emerald-500/80 shadow-emerald-700/20"
               >
-                <i data-lucide="bookmark-plus" class="w-3.5 h-3.5" id="save-icon"></i>
+                <i data-lucide="bookmark-plus" class="w-4 h-4" id="save-icon"></i>
                 <span id="save-btn-text">Save</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- 3. CALCULATION HISTORY SECTION -->
-        <section id="calculation-history-section" class="w-full mt-4 pt-3 border-t border-slate-800/80">
-          <div class="flex items-center justify-between mb-2.5">
-            <div class="flex items-center gap-1.5 text-slate-300 font-semibold text-xs sm:text-sm">
-              <i data-lucide="history" class="w-3.5 h-3.5 text-emerald-400"></i>
+        <!-- 3. CALCULATION HISTORY SECTION (Scrollable, full features on homepage) -->
+        <section id="calculation-history-section" class="w-full mt-5 pt-4 border-t border-slate-800">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2 text-slate-200 font-bold text-sm sm:text-base">
+              <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
               <span id="label-history-title">Calculation History</span>
-              <span id="history-count-badge" class="hidden px-1.5 py-0.2 rounded-full bg-slate-800 text-[10px] text-slate-400 font-mono">0</span>
+              <span id="history-count-badge" class="hidden px-2 py-0.5 rounded-full bg-slate-800 text-xs text-slate-300 font-mono font-bold">0</span>
             </div>
 
             <button
               type="button"
               id="clear-history-btn"
-              class="hidden text-[11px] font-medium text-rose-400 hover:text-rose-300 flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-rose-500/10 transition-colors"
+              class="hidden text-xs sm:text-sm font-semibold text-rose-400 hover:text-rose-300 flex items-center gap-1.5 py-1 px-2.5 rounded-lg hover:bg-rose-500/10 transition-colors"
             >
-              <i data-lucide="trash-2" class="w-3 h-3"></i>
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
               <span id="label-clear-history">Clear History</span>
             </button>
           </div>
 
           <!-- History Items Container -->
-          <div id="history-items-container" class="space-y-2">
+          <div id="history-items-container" class="space-y-2.5">
             <!-- Empty state -->
-            <div id="history-empty" class="rounded-xl border border-dashed border-slate-800 p-4 text-center text-xs text-slate-500">
+            <div id="history-empty" class="rounded-xl border border-dashed border-slate-800 p-5 text-center text-xs sm:text-sm text-slate-500">
               No calculations saved yet
             </div>
           </div>
@@ -728,44 +728,44 @@
             const feeText = item.sendMoneyFee > 0 ? `-${formatBDT(item.sendMoneyFee)}` : '৳0.00';
 
             html += `
-              <div class="history-card group relative rounded-xl bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-700/80 p-3 transition-all cursor-pointer shadow-sm text-xs" data-id="${item.id}">
-                <div class="flex items-center justify-between gap-2 mb-2">
-                  <div class="flex items-center gap-1.5">
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-md font-semibold text-[11px] border ${config.badgeBg} ${config.badgeText} ${config.borderAccent}">
+              <div class="history-card group relative rounded-2xl bg-slate-900 hover:bg-slate-850 border border-slate-800 hover:border-slate-700/80 p-3.5 sm:p-4 transition-all cursor-pointer shadow-sm text-xs sm:text-sm" data-id="${item.id}">
+                <div class="flex items-center justify-between gap-2 mb-2.5">
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md font-bold text-xs border ${config.badgeBg} ${config.badgeText} ${config.borderAccent}">
                       ${displayName}
                     </span>
-                    <span class="text-[11px] text-slate-400 font-medium">
+                    <span class="text-xs text-slate-400 font-medium">
                       ${item.formattedDate}
                     </span>
                   </div>
-                  <div class="flex items-center gap-1">
-                    <button type="button" class="history-copy-btn p-1 rounded-md text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors" data-total="${item.total}" title="${t.copyTotal}">
-                      <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" class="history-copy-btn p-1.5 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-slate-800 transition-colors" data-total="${item.total}" title="${t.copyTotal}">
+                      <i data-lucide="copy" class="w-4 h-4"></i>
                     </button>
-                    <button type="button" class="history-del-btn p-1 rounded-md text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors" data-id="${item.id}" title="Delete">
-                      <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                    <button type="button" class="history-del-btn p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors" data-id="${item.id}" title="Delete">
+                      <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                     <span class="p-1 text-slate-500 group-hover:text-emerald-400 transition-colors">
-                      <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                      <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                     </span>
                   </div>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-800/80 text-[11px]">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2.5 border-t border-slate-800/80">
                   <div>
-                    <span class="text-slate-400 block text-[10px]">${t.yourAmount}</span>
-                    <span class="font-semibold text-slate-200">${formatBDT(item.amount)}</span>
+                    <span class="text-slate-400 block text-[11px] font-medium">${t.yourAmount}</span>
+                    <span class="font-bold text-slate-100 text-xs sm:text-sm">${formatBDT(item.amount)}</span>
                   </div>
                   <div>
-                    <span class="text-slate-400 block text-[10px]">${t.cashoutCharge}</span>
-                    <span class="font-medium text-slate-300">${formatBDT(item.baseCharge)}</span>
+                    <span class="text-slate-400 block text-[11px] font-medium">${t.cashoutCharge}</span>
+                    <span class="font-bold text-slate-200 text-xs sm:text-sm">${formatBDT(item.baseCharge)}</span>
                   </div>
                   <div>
-                    <span class="text-slate-400 block text-[10px]">Send Fee</span>
-                    <span class="font-medium text-amber-400/90">${feeText}</span>
+                    <span class="text-slate-400 block text-[11px] font-medium">Send Fee</span>
+                    <span class="font-bold text-amber-400 text-xs sm:text-sm">${feeText}</span>
                   </div>
                   <div class="text-left sm:text-right">
-                    <span class="text-emerald-400/90 block text-[10px] font-semibold">${t.totalCustomerPays}</span>
-                    <span class="font-bold text-emerald-400 text-xs">${formatBDT(item.total)}</span>
+                    <span class="text-emerald-400/90 block text-[11px] font-bold">${t.totalCustomerPays}</span>
+                    <span class="font-extrabold text-emerald-400 text-sm sm:text-base">${formatBDT(item.total)}</span>
                   </div>
                 </div>
               </div>

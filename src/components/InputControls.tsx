@@ -52,14 +52,14 @@ export const InputControls: React.FC<InputControlsProps> = ({
   ];
 
   return (
-    <div className="w-full space-y-1.5">
+    <div className="w-full space-y-2.5 sm:space-y-3">
       {/* Side-by-Side: MFS Selector & Amount Input */}
-      <div className="grid grid-cols-12 gap-1.5 sm:gap-2">
+      <div className="grid grid-cols-12 gap-2 sm:gap-2.5">
         {/* MFS Selector (5 cols) */}
         <div className="col-span-5">
           <label
             htmlFor="mfs-select"
-            className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5 truncate"
+            className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1 truncate"
           >
             {t.selectMfs}
           </label>
@@ -68,7 +68,7 @@ export const InputControls: React.FC<InputControlsProps> = ({
               id="mfs-select"
               value={selectedMfs}
               onChange={(e) => onSelectMfs(e.target.value as MFSKey)}
-              className="w-full h-8 sm:h-9 appearance-none rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs font-semibold pl-2 pr-5 py-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-sm truncate"
+              className="w-full h-11 sm:h-12 appearance-none rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs sm:text-sm font-bold pl-2.5 pr-7 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer shadow-sm truncate"
             >
               <option value="bkash">
                 {language === 'bn' ? mfsRates.bkash.bnName : mfsRates.bkash.name} (৳{mfsRates.bkash.rate}/k)
@@ -84,18 +84,18 @@ export const InputControls: React.FC<InputControlsProps> = ({
               </option>
             </select>
             <ChevronDown
-              size={13}
-              className="absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+              size={16}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
             />
           </div>
         </div>
 
         {/* Amount Input (7 cols) */}
         <div className="col-span-7">
-          <div className="flex items-center justify-between mb-0.5">
+          <div className="flex items-center justify-between mb-1">
             <label
               htmlFor="amount-input"
-              className="block text-[10px] font-semibold text-slate-400 uppercase tracking-wider truncate"
+              className="block text-xs font-bold text-slate-300 uppercase tracking-wider truncate"
             >
               {t.yourAmount}
             </label>
@@ -103,16 +103,16 @@ export const InputControls: React.FC<InputControlsProps> = ({
               <button
                 type="button"
                 onClick={onClearAmount}
-                className="text-[10px] text-slate-400 hover:text-slate-200 flex items-center gap-0.5 transition-colors"
+                className="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1 transition-colors"
               >
-                <XCircle size={10} />
+                <XCircle size={12} />
                 <span>{t.clear}</span>
               </button>
             )}
           </div>
 
           <div className="relative flex items-center">
-            <span className="absolute left-2 text-emerald-400 font-bold text-xs sm:text-sm pointer-events-none select-none">
+            <span className="absolute left-3 text-emerald-400 font-bold text-base sm:text-lg pointer-events-none select-none">
               ৳
             </span>
             <input
@@ -124,20 +124,20 @@ export const InputControls: React.FC<InputControlsProps> = ({
               placeholder="0.00"
               value={rawAmount}
               onChange={handleInputChange}
-              className="w-full h-8 sm:h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-xs sm:text-sm font-bold pl-5 pr-2 py-1 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all shadow-sm tracking-wide"
+              className="w-full h-11 sm:h-12 rounded-xl bg-slate-800 border border-slate-700 text-slate-100 text-base sm:text-lg font-bold pl-8 pr-3 py-2 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all shadow-sm tracking-wide"
             />
           </div>
         </div>
       </div>
 
       {/* Quick Add Buttons & Clear */}
-      <div className="grid grid-cols-5 gap-1 pt-0.5">
+      <div className="grid grid-cols-5 gap-1.5 sm:gap-2 pt-0.5">
         {quickAdds.map((item) => (
           <button
             key={item.value}
             type="button"
             onClick={() => onQuickAdd(item.value)}
-            className="h-7 py-0.5 px-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-300 hover:text-white text-[11px] font-semibold border border-slate-700/80 transition-all text-center focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 hover:text-white text-xs sm:text-sm font-bold border border-slate-700/80 transition-all text-center focus:outline-none focus:ring-1 focus:ring-emerald-500"
           >
             {item.label}
           </button>
@@ -145,7 +145,7 @@ export const InputControls: React.FC<InputControlsProps> = ({
         <button
           type="button"
           onClick={onClearAmount}
-          className="h-7 py-0.5 px-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 text-rose-400 hover:text-rose-300 text-[11px] font-semibold border border-rose-500/30 transition-all text-center focus:outline-none"
+          className="h-9 sm:h-10 py-1 px-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 text-rose-400 hover:text-rose-300 text-xs sm:text-sm font-bold border border-rose-500/30 transition-all text-center focus:outline-none"
         >
           {t.clear}
         </button>

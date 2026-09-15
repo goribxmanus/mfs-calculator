@@ -48,34 +48,34 @@ export const ResultCard: React.FC<ResultCardProps> = ({
     <section
       id="result-card"
       aria-label="Calculation Result"
-      className="relative w-full rounded-2xl bg-gradient-to-b from-slate-800/95 to-slate-900 border border-slate-700/80 shadow-md p-2.5 sm:p-3 transition-all"
+      className="relative w-full rounded-2xl bg-gradient-to-b from-slate-800/95 to-slate-900 border border-slate-700/80 shadow-md p-3.5 sm:p-4 transition-all"
     >
-      {/* Top micro-line: MFS badge & Cashout Charge */}
-      <div className="flex items-center justify-between gap-2 pb-1.5 border-b border-slate-700/50 text-[11px] sm:text-xs">
-        <div className="flex items-center gap-1.5 min-w-0">
+      {/* Top row: MFS badge & Cashout Charge */}
+      <div className="flex items-center justify-between gap-2 pb-2 border-b border-slate-700/60 text-xs sm:text-sm">
+        <div className="flex items-center gap-2 min-w-0">
           <span
-            className={`inline-flex items-center px-1.5 py-0.5 rounded-md font-semibold text-[10px] sm:text-[11px] border ${calculation.mfs.badgeBg} ${calculation.mfs.badgeText} ${calculation.mfs.borderAccent}`}
+            className={`inline-flex items-center px-2 py-0.5 rounded-md font-bold text-xs sm:text-sm border ${calculation.mfs.badgeBg} ${calculation.mfs.badgeText} ${calculation.mfs.borderAccent}`}
           >
             {mfsDisplayName}
           </span>
-          <span className="text-slate-300 text-[11px] truncate">
-            {t.cashoutCharge}: <strong className="text-slate-100 font-bold">{formatBDT(calculation.baseCharge)}</strong>
+          <span className="text-slate-300 truncate">
+            {t.cashoutCharge}: <strong className="text-slate-100 font-bold text-sm sm:text-base">{formatBDT(calculation.baseCharge)}</strong>
           </span>
         </div>
         {calculation.sendMoneyFee > 0 && (
-          <span className="text-[10px] text-amber-400 font-medium whitespace-nowrap">
+          <span className="text-xs text-amber-400 font-semibold whitespace-nowrap">
             (Fee: -{formatBDT(calculation.sendMoneyFee)})
           </span>
         )}
       </div>
 
       {/* Main hero line: TOTAL CUSTOMER PAYS (Large & Eye-Catching) + Copy button */}
-      <div className="pt-1.5 flex items-center justify-between gap-2">
+      <div className="pt-2 flex items-center justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <span className="block text-[10px] font-bold text-emerald-400 uppercase tracking-wider leading-none">
+          <span className="block text-xs sm:text-sm font-bold text-emerald-400 uppercase tracking-wider leading-none">
             {t.totalCustomerPays}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight mt-0.5 truncate">
+          <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mt-1 truncate">
             {formatBDT(calculation.total)}
           </div>
         </div>
@@ -85,7 +85,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
           id="copy-total-button"
           type="button"
           onClick={handleCopyTotal}
-          className={`flex-shrink-0 flex items-center gap-1 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all active:scale-95 shadow-sm ${
+          className={`flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 shadow-md ${
             copied
               ? 'bg-emerald-500 text-white shadow-emerald-500/20'
               : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/30'
@@ -94,7 +94,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
         >
           {copied ? (
             <>
-              <Check size={14} className="stroke-[2.5]" />
+              <Check size={16} className="stroke-[2.5]" />
               <span>{t.copied}</span>
             </>
           ) : (
